@@ -1,0 +1,23 @@
+esercizio 2
+
+per l'autenticazione dovremo generare la coppia di chiavi ssh pubblica e privata sulla macchina locale, con il comando: 
+ssh-keygen -t rsa
+
+copiamo la chiave pubblica sul server remoto:
+
+ssh-copy-id user@192.168.1.100
+
+accediamo finalmente al server remoto senza dover inserire password:
+
+ssh user@192.168.1.100
+
+apriamo crontab con il comando crontab -e
+
+a questo punto ci viene chiesto il nostro editor preferito, sceglieremo nano che nella nostra macchina locale corrisponde al tasto 1
+
+ed editiamo il file crontab con la seguente riga :
+
+0 2 * * 0 rsync -avz --delete -e "ssh -i /path/to/your/private/key" /home/user/ user@192.168.1.100:/path/to/remote/backup/
+
+salviamo il file e chiudiamo.
+
