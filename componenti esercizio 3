@@ -31,6 +31,10 @@ Componenti dell'Infrastruttura:
    - Scopo: Monitoraggio e registrazione dei log.
    - Motivo: Utilizziamo CloudWatch per tenere traccia delle prestazioni del sistema e per il monitoraggio dei log. Questo ci aiuta a rilevare e risolvere tempestivamente eventuali problemi.
 
+8. Amazon ELB:
+   - Scopo: Distribuzione del traffico tra le istanze EC2.
+   - Motivo: Motivo: Utilizziamo ELB per bilanciare il carico del traffico tra più istanze EC2, migliorando così la disponibilità e la scalabilità dell'applicazione WordPress..
+
 Motivi delle Scelte:
 
 - Abbiamo scelto AWS come public cloud provider per la sua affidabilità, scalabilità e ampio set di servizi.
@@ -46,4 +50,6 @@ Motivi delle Scelte:
 - S3 è utilizzato per la gestione dei contenuti statici.
 
 - CloudWatch ci permette di monitorare e gestire l'infrastruttura in modo proattivo.
+
+- ELB è utilizzato per bilanciare il carico del traffico tra le istanze EC2, migliorando la disponibilità dell'applicazione WordPress.
 
