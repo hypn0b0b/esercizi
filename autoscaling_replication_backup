@@ -1,0 +1,113 @@
+script per Cloudformation
+
+
+Descrizione: autoscaling con target 3 istanze, che oscilla tra 1 e 5
+
+Resources:
+  AutoScalingGroup:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      DesiredCapacity: 3
+      MinSize: 1
+      MaxSize: 5
+      LaunchConfigurationName: my-launch-configuration
+      TargetGroupARNs:
+        - arn:aws:elasticloadbalancing:us-east-1:123456789012:target-group/my-target-group
+       VPCZoneIdentifiers:
+        - subnet-a1a1a1a1a
+        - subnet-b2b2b2b2b
+
+Descrizione: uguale al precedente, con replicazione database
+
+Resources:
+  AutoScalingGroup:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      DesiredCapacity: 3
+      MinSize: 1
+      MaxSize: 5
+      LaunchConfigurationName: my-launch-configuration
+      TargetGroupARNs:
+        - arn:aws:elasticloadbalancing:us-east-1:123456789012:target-group/my-target-group
+       VPCZoneIdentifiers:
+        - subnet-a1a1a1a1a
+        - subnet-b2b2b2b2b
+
+  Database:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBName: my-db
+      Engine: MySQL
+      AllocatedStorage: 20
+      StorageType: gp2
+      MasterUsername: my-user
+      MasterUserPassword: my-password
+      MultiAZ: true
+
+  ReadReplica:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBName: my-db
+      Engine: MySQL
+      AllocatedStorage: 20
+      StorageType: gp2
+      MasterUsername: my-user
+      MasterUserPassword: my-password
+      SourceDBInstanceIdentifier: Database
+      ReadReplicaSourceDBInstanceIdentifier: Database
+	  
+	  
+	  ------------------
+	 Questo file di configurazione crea un gruppo Auto Scaling con tre istanze EC2. Il gruppo Auto Scaling viene dimensionato in base al carico sulle istanze EC2.
+
+Il file di configurazione crea anche due istanze RDS. La prima istanza RDS è la replica principale e la seconda istanza RDS è la replica secondaria. La replica secondaria viene aggiornata automaticamente dalla replica principale.
+
+Il file di configurazione crea inoltre un piano di backup che esegue backup giornalieri del database MySQL. Il piano di backup salva i backup in un vault di backup.
+	 
+	 Resources:
+  AutoScalingGroup:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      DesiredCapacity: 3
+      MinSize: 1
+      MaxSize: 5
+      LaunchConfigurationName: my-launch-configuration
+      TargetGroupARNs:
+        - arn:aws:elasticloadbalancing:us-east-1:123456789012:target-group/my-target-group
+       VPCZoneIdentifiers:
+        - subnet-a1a1a1a1a
+        - subnet-b2b2b2b2b
+
+  Database:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBName: my-db
+      Engine: MySQL
+      AllocatedStorage: 20
+      StorageType: gp2
+      MasterUsername: my-user
+      MasterUserPassword: my-password
+      MultiAZ: true
+
+  ReadReplica:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBName: my-db
+      Engine: MySQL
+      AllocatedStorage: 20
+      StorageType: gp2
+      MasterUsername: my-user
+      MasterUserPassword: my-password
+      SourceDBInstanceIdentifier: Database
+      ReadReplicaSourceDBInstanceIdentifier: Database
+
+  Backup:
+    Type: AWS::Backup::BackupPlan
+    Properties:
+      BackupPlanName: MyBackupPlan
+      ScheduleExpression: "cron(0 0 * * ? *)"
+      BackupSelections:
+        - Resources:
+            - arn:aws:rds:us-east-1:123456789012:db:my-db
+          BackupTarget:
+            BackupTargetArn: arn:aws:backup:us-east-1:123456789012:vault:my-vault
