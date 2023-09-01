@@ -1,0 +1,49 @@
+Esercizio 3
+
+Componenti dell'Infrastruttura:
+
+1. Amazon RDS:
+
+   - Scopo: Memorizzazione dei dati del sito WordPress.
+   - Motivo: Utilizziamo RDS per garantire la gestione dei dati in un database MySQL altamente disponibile e scalabile. RDS semplifica la gestione del database e fornisce backup automatici.
+
+2. Amazon EC2:
+   - Scopo: Esecuzione del server web.
+   - Motivo: Utilizziamo EC2 per ospitare il server web su cui viene eseguito WordPress. EC2 offre scalabilità e controllo completo sull'ambiente di hosting.
+
+3. Amazon VPC :
+   - Scopo: Isolamento e sicurezza delle risorse.
+   - Motivo: Utilizziamo VPC per creare una rete isolata che separa le subnet pubbliche da quelle private. Questo migliora la sicurezza dell'infrastruttura.
+
+4. Amazon Security Groups:
+   - Scopo: Controllo del traffico in ingresso e in uscita.
+   - Motivo: Utilizziamo i gruppi di sicurezza per consentire solo il traffico necessario alle istanze, ad esempio HTTP, HTTPS e SSH. Questo aumenta la sicurezza.
+
+5. Amazon Elastic IP:
+   - Scopo: Assegnazione di un indirizzo IP persistente.
+   - Motivo: Utilizziamo l'indirizzo IP elastico per garantire che l'indirizzo IP pubblico del nostro sito WordPress rimanga invariato anche in caso di riavvio delle istanze.
+
+6. Amazon S3:
+   - Scopo: Archiviazione dei contenuti del sito web.
+   - Motivo: Utilizziamo S3 per archiviare in modo affidabile il contenuto del sito, come immagini, video e altri asset statici. S3 semplifica la distribuzione dei contenuti.
+
+7. Amazon CloudWatch:
+   - Scopo: Monitoraggio e registrazione dei log.
+   - Motivo: Utilizziamo CloudWatch per tenere traccia delle prestazioni del sistema e per il monitoraggio dei log. Questo ci aiuta a rilevare e risolvere tempestivamente eventuali problemi.
+
+Motivi delle Scelte:
+
+- Abbiamo scelto AWS come public cloud provider per la sua affidabilità, scalabilità e ampio set di servizi.
+
+- Abbiamo selezionato RDS per il database MySQL per semplificare la gestione del database e garantire la sua alta disponibilità.
+
+- EC2 è stato scelto per l'esecuzione del server web per la sua flessibilità e possibilità di personalizzazione.
+
+- VPC e i gruppi di sicurezza sono utilizzati per migliorare la sicurezza dell'infrastruttura.
+
+- L'indirizzo IP elastico è stato scelto per garantire la stabilità dell'indirizzo IP pubblico.
+
+- S3 è utilizzato per la gestione dei contenuti statici.
+
+- CloudWatch ci permette di monitorare e gestire l'infrastruttura in modo proattivo.
+
